@@ -1,0 +1,49 @@
+'''Exercício de programação: fila de banco;
+   A cada dois clientes atendidos com idade maior ou 
+   igual a 60 anos, é atendido um abaixo de 60 anos.'''
+
+
+lista = []
+lista1 = [['Marcos', 22], ['José', 62], ['Matheus', 27], ['Lucas', 63], ['Maria', 29],
+         ['Paulo', 92], ['Etelvina', 27], ['Alvaro', 18], ['Ítalo', 29], ['Carlos', 90]]
+maior_60 = []
+menor_60 = []
+fila_prioridade = []
+while True:
+    nome = str(input('Nome: '))
+    idade = int(input('idade: '))
+    continuar = str(input('Novo atendimento? [S/N]')).strip().lower()[0]
+    print('')
+    lista.append(nome)
+    lista.append(idade)
+    lista1.append(lista[:])
+    tam = len(lista1)
+    lista.clear()
+    if continuar == 'n':
+        break
+for e in lista1:
+    if e[1] >= 60:
+        maior_60.append(e)
+    else:
+        menor_60.append(e)
+cont = 0
+while True:
+    if cont < 2:
+        if len(maior_60) > 0 or len(menor_60) == 0:
+            fila_prioridade.append(maior_60[0])
+            maior_60.pop(0)
+            cont += 1
+    if cont == 2 or len(maior_60) == 0:
+        if len(menor_60) > 0:
+            fila_prioridade.append(menor_60[0])
+            menor_60.pop(0)
+            cont = 0
+    if len(maior_60) == 0 and len(menor_60) == 0:
+        break
+
+c = 1
+for ele in fila_prioridade:
+    print(f'{c:<2}º - {ele[0]:<10} >   {ele[1]:<2} anos.')
+    c += 1
+
+
